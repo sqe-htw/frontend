@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="card">
+ 
+    <h4 class="card-header">Registrieren</h4>
+    <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="username">Benutzername</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Benutzername angeben</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Passwort</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password ist notwendig</div>
+                    <div *ngIf="f.password.errors.minlength">Passwort muss aus mindestens 8 Zeichen bestehen</div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Registrieren
+                </button>
+                <a routerLink="" class="btn btn-link">Abbrechen</a>
+            </div>
+        </form>
+    </div>
+  </div>
+  
+
+</div>
