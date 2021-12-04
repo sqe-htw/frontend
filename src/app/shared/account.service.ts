@@ -50,9 +50,9 @@ export class AccountService {
    * @param user 
    * @returns 
    */
-  register(user: User) {
+  register(user: User) : Observable<User>{
     console.log("__debug:" +user.username)
-      return this.http.post(`${environment.apiUrl}/user/register`, user);
+      return this.http.post<User>(`${environment.apiUrl}/user/register`, user);
   }
 
   /**
