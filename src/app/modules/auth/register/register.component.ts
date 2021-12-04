@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
     console.log("__debug: Component 'register' has loaded")
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(4)]]
   });
   }
 
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
       if (this.form.invalid) {
         return;
-    }
+      }
      
       console.log("Value:" +this.form.value)
       this.loading = true;
@@ -52,8 +52,7 @@ export class RegisterComponent implements OnInit {
               error: error => {
                 alert("Error" + error)
                   this.loading = false;
-              }
-          });
+              }});
   }
 }
 

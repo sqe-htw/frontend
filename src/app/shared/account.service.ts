@@ -52,7 +52,7 @@ export class AccountService {
    */
   register(user: User) {
     console.log("__debug:" +user.username)
-      return this.http.post(`${environment.apiUrl}/register`, user);
+      return this.http.post(`${environment.apiUrl}/user/register`, user);
   }
 
   /**
