@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountService} from "../../../shared/account.service";
 import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
-import {User, UserAuth} from "../../../models/user";
+import {UserAuth} from "../../../models/user";
 
 @Component({
   selector: 'app-login',
@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
           next: (event:UserAuth) => {
             alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
             this.loading = false;
+            this.router.navigateByUrl('');
           },
           error: error => {
             alert("Error"+ error)

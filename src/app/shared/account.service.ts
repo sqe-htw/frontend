@@ -13,9 +13,6 @@ import {User, UserAuth} from '../models/user';
 export class AccountService {
 
     private userSubject: BehaviorSubject<UserAuth>;
-    public userObservable: Observable<UserAuth>;
-
-    public userInformation!: UserAuth;
     loggedIn = false;
 
 
@@ -25,8 +22,10 @@ export class AccountService {
         private http: HttpClient
     ) {
         this.userSubject = new BehaviorSubject<UserAuth>(JSON.parse(localStorage.getItem("user") || '{}'));
-        this.userObservable = this.userSubject.asObservable();
         this.userSubject.subscribe({next: (v) => console.log(v ?? '')});
+        this.userSubject.subscribe({
+            next: (user) => localStorage.setItem("user", JSON.stringify(user))
+        })
     }
 
     public get userValue(): UserAuth {
@@ -35,9 +34,8 @@ export class AccountService {
 
     /**
      * Speichere Userdaten und jwt token in lokalem Speicher, User eingeloggt zu lassen
-     * @param username
-     * @param password
-     * @returns Observable<User>
+     * @param user the user object with username and password set
+     * @returns Observable<UserAuth> includes the token and user without password
      */
     login(user: User): Observable<UserAuth> {
         return this.http
@@ -47,7 +45,6 @@ export class AccountService {
                 // Registration was successful
                 // Save the users id and token
                 this.userSubject.next(result);
-                this.userInformation = result;
                 this.loggedIn = true;
                 return result
             }));
@@ -62,8 +59,8 @@ export class AccountService {
 
     /**
      * Registriere User
-     * @param user
-     * @returns
+     * @param user the user object with username and password set
+     * @returns Observable<User> the user object with also the id set
      */
     register(user: User): Observable<User> {
         console.log("__debug:" + user.username)
