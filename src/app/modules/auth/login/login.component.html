@@ -9,6 +9,7 @@
                  formControlName="username"
                  placeholder="Benutzernamen eingeben"
                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+
         </div>
         <div class="form-group">
           <label for="inputPassword">Passwort</label>
@@ -23,7 +24,16 @@
             <a  class="nav-link"
             [routerLink]="['/reset-password']" >Passwort vergessen</a>
         </div>
-        <button type="submit" class="btn btn-primary submit">Einloggen</button>
+        <div class="form-group">
+            <div *ngIf="loginError"  class="text-danger">
+                <div> Benutzername und Passwort Kombination existiert nicht.</div>
+            </div>
+            <button [disabled]="loading" type="submit" class="btn btn-primary submit">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Einloggen
+            </button>
+        </div>
+
       </form>
 
 </div>

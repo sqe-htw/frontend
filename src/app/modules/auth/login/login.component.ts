@@ -13,6 +13,7 @@ import {UserAuth} from "../../../models/user";
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   loading = false;
+  loginError = false;
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
@@ -48,10 +49,12 @@ export class LoginComponent implements OnInit {
             alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
             this.loading = false;
             this.router.navigateByUrl('');
+            this.loginError = false;
           },
           error: error => {
-            alert("Error"+ error)
+            //alert("Error"+ error)
             this.loading = false;
+            this.loginError = true;
           }
         })
 
