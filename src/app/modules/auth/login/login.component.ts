@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AccountService} from "../../../shared/account.service";
+import {Router} from "@angular/router";
+import {first} from "rxjs/operators";
+import {User, UserAuth} from "../../../models/user";
 
 @Component({
   selector: 'app-login',
@@ -6,10 +11,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
+  form!: FormGroup;
+  loading = false;
+  submitted = false;
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder,
+              private accountService: AccountService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    console.log("__debug: Component 'login' has loaded")
+    this.form = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(4)]]
+    });
   }
+
+  get f() { return this.form.controls; }
+
+  onSubmit(): void {
+    console.log("__debug: onSubmit login component");
+
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    console.log("Value:" +this.form.value)
+
+    let formValue = this.form.value;
+
+    this.accountService.login(formValue.username, formValue.password)
+        .pipe(first())
+        .subscribe({
+          next: (event:UserAuth) => {
+            alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
+          },
+          error: error => {
+            alert("Error"+ error)
+          }
+        })
+
+  }
+
 
 }

@@ -49,15 +49,15 @@ export class RegisterComponent implements OnInit {
           .pipe(first())
           .subscribe({
               next: (event : User) => {
-                  console.log(event);
                   alert(`Der Benutzer ${event.username} wurde registriert.`);
                   this.loading = false;
                   this.router.navigateByUrl('login');
               },
               error: error => {
-                alert("Error" + error)
+                  alert("Error" + error);
                   this.loading = false;
-              }});
+              }
+          });
   }
 }
 

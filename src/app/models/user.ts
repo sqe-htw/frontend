@@ -1,6 +1,10 @@
 export interface User {
-    id: string;
+    id: number,
     username: string;
     password: string;
-    token: string;
+}
+
+export interface UserAuth{
+    access_token: string;
+    user: User;
 }

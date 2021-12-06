@@ -1,13 +1,23 @@
 <div class="auth-card">
     <a  class="nav-link"  [routerLink]="['']" >Zur&uuml;ck</a>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="inputUsername">Benutzernamen</label>
-          <input type="text" class="form-control" id="inputUsername"  placeholder="Benutzernamen eingeben">
+          <input type="text"
+                 class="form-control"
+                 id="inputUsername"
+                 formControlName="username"
+                 placeholder="Benutzernamen eingeben"
+                 [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
         </div>
         <div class="form-group">
           <label for="inputPassword">Passwort</label>
-          <input type="password" class="form-control" id="inputPassword" placeholder="Passwort eingeben">
+          <input type="password"
+                 class="form-control"
+                 id="inputPassword"
+                 formControlName="password"
+                 placeholder="Passwort eingeben"
+                 [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
         </div>
         <div class="form-check">
             <a  class="nav-link"
