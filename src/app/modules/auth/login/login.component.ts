@@ -38,18 +38,19 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log("Value:" +this.form.value)
+    console.log("Value:" +this.form.value);
+    this.loading = true;
 
-    let formValue = this.form.value;
-
-    this.accountService.login(formValue.username, formValue.password)
+    this.accountService.login(this.form.value)
         .pipe(first())
         .subscribe({
           next: (event:UserAuth) => {
             alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
+            this.loading = false;
           },
           error: error => {
             alert("Error"+ error)
+            this.loading = false;
           }
         })
 

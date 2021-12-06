@@ -26,7 +26,7 @@ export class AccountService {
     ) {
         this.userSubject = new BehaviorSubject<UserAuth>(JSON.parse(localStorage.getItem("user") || '{}'));
         this.userObservable = this.userSubject.asObservable();
-        this.userObservable.subscribe({next: (event: UserAuth) => this.userInformation = event});
+        this.userSubject.subscribe({next: (v) => console.log(v ?? '')});
     }
 
     public get userValue(): UserAuth {
@@ -39,12 +39,14 @@ export class AccountService {
      * @param password
      * @returns Observable<User>
      */
-    login(username: string, password: string): Observable<UserAuth> {
+    login(user: User): Observable<UserAuth> {
         return this.http
             .post<UserAuth>(`${environment.apiUrl}/auth/login`,
-                {"username": username, "password": password})
+                {"username": user.username, "password": user.password})
             .pipe(map((result: UserAuth) => {
-                //Registration was successful
+                // Registration was successful
+                // Save the users id and token
+                this.userSubject.next(result);
                 this.userInformation = result;
                 this.loggedIn = true;
                 return result
