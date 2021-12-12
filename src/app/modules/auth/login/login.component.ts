@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     }
     this.valid = true;
 
-    console.log("Value:" +this.form.value);
+    console.log("Value:" +this.form.value.username);
     this.loading = true;
 
     this.accountService.login(this.form.value)

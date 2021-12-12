@@ -10,7 +10,6 @@ import {By} from "@angular/platform-browser";
 import {of} from "rxjs";
 import {User, UserAuth} from '../../../models/user';
 import {AccountService} from "../../../shared/account.service";
-import {first} from "rxjs/operators";
 
 
 
@@ -19,26 +18,20 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let de: DebugElement;
 
-  let serviceStub: any;
+  let service: AccountService;
+
+  let spy: jasmine.Spy;
 
   beforeEach(async () => {
-
-    serviceStub = {
-      login: () => {
-        console.log('stub called');
-        return 'test';
-      }
-    };
-
     await TestBed.configureTestingModule({
       imports: [
           FormsModule,
         ReactiveFormsModule,
         RouterModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
       ],
-      providers: [{ provide: AccountService, useValue: serviceStub }],
+      providers: [ AccountService ],
       declarations: [ LoginComponent ]
     })
     .compileComponents();
@@ -48,6 +41,11 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
+
+    service = de.injector.get(AccountService);
+
+    spy = spyOn(service, 'login').and.returnValue(of({} as UserAuth));
+
 
     fixture.detectChanges();
   });
@@ -70,6 +68,26 @@ describe('LoginComponent', () => {
     expect(component.submitted).toBeTruthy();
   });
 
+  it('form should be updated', () => {
+    updateForm('testUsername', 'testPassword');
+    expect(component.form.value.username).toEqual('testUsername');
+    expect(component.form.value.password).toEqual('testPassword');
+
+  })
+
+  it('should call login on time and update the view', () => {
+    updateForm('testUsername', 'testPassword');
+
+    component.onSubmit();
+    expect(spy).toHaveBeenCalledWith({ username: 'testUsername', password: 'testPassword' });
+    expect(spy.calls.all().length).toEqual(1);
+  });
+
+  /**
+   * Sets the values of the login form programmatically
+   * @param username set in the form
+   * @param password set in the form
+   */
   function updateForm(username: string, password: string) {
     component.form.controls['username'].setValue(username);
     component.form.controls['password'].setValue(password);
