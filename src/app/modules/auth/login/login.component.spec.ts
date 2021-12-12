@@ -75,7 +75,7 @@ describe('LoginComponent', () => {
 
   })
 
-  it('should call login on time and update the view', () => {
+  it('should call login one time, with inputted values', () => {
     updateForm('testUsername', 'testPassword');
 
     component.onSubmit();
