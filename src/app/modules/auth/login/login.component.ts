@@ -12,6 +12,7 @@ import {UserAuth} from "../../../models/user";
 })
 export class LoginComponent implements OnInit {
   form!: FormGroup;
+  valid = false;
   loading = false;
   loginError = false;
   submitted = false;
@@ -36,8 +37,10 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.form.invalid) {
+      this.valid = false;
       return;
     }
+    this.valid = true;
 
     console.log("Value:" +this.form.value);
     this.loading = true;
