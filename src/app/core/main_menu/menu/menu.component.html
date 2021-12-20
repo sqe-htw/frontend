@@ -5,15 +5,15 @@
             <a  class="nav-link"
                 [routerLink]="['play']"
                 routerLinkActive="router-link-active" >
-                <button type="button" class="btn btn-success btn-lg">Play</button>
+                <button type="button" id="playButton" class="btn btn-success btn-lg">Play</button>
             </a>
             <a  class="nav-link"
                 [routerLink]="['manage']"
                 routerLinkActive="router-link-active" >
-                <button type="button" class="btn btn-primary btn-lg">Manage Cards</button>
+                <button type="button" id="manageCardsButton" class="btn btn-primary btn-lg">Manage Cards</button>
             </a>
             <a class="nav-link">
-                <button type="button" (click)="logout()" class="btn btn-primary btn-lg">Logout</button>
+                <button type="button" (click)="logout()" id="logoutButton" class="btn btn-primary btn-lg">Logout</button>
             </a>
         </div>
     </div>

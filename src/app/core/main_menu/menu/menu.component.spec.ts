@@ -8,6 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {AccountService} from "../../../shared/account.service";
 import {UserAuth} from "../../../models/user";
 import {DebugElement} from "@angular/core";
+import {By} from "@angular/platform-browser";
 
 describe('MenuComponent', () => {
   let component: MenuComponent;
@@ -17,6 +18,8 @@ describe('MenuComponent', () => {
 
   let service: AccountService;
   let spy: jasmine.Spy;
+  let logoutSpy: jasmine.Spy;
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -41,6 +44,8 @@ describe('MenuComponent', () => {
     service = de.injector.get(AccountService);
 
     spy = spyOn(service, 'currentUser').and.returnValue({user: {username: 'Tester'}} as UserAuth);
+    logoutSpy= spyOn(service, 'logout');
+
 
 
     fixture.detectChanges();
@@ -48,5 +53,22 @@ describe('MenuComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should paint the play button', () => {
+    expect(de.query(By.css('#playButton')).nativeElement.innerText).toContain('Play');
+  });
+
+  it('should paint the manage cards button', () => {
+    expect(de.query(By.css('#manageCardsButton')).nativeElement.innerText).toContain('Manage Cards');
+  });
+
+  it('should paint the logout button', () => {
+    expect(de.query(By.css('#logoutButton')).nativeElement.innerText).toContain('Logout');
+  });
+
+  it('logout button should logout user', () => {
+    component.logout();
+    expect(spy).toHaveBeenCalled();
   });
 });
