@@ -54,7 +54,8 @@ export class AccountService {
      * Entferne Nutzer vom lokalen Speicher und setze aktuellen user auf null
      */
     logout() {
-
+        this.userSubject.next({} as UserAuth);
+        this.loggedIn = false;
     }
 
     /**
