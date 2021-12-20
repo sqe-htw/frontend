@@ -6,12 +6,10 @@ import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "../../../app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import {AccountService} from "../../../shared/account.service";
-import {LoginComponent} from "../../../modules/auth/login/login.component";
-import {of} from "rxjs";
 import {UserAuth} from "../../../models/user";
 import {DebugElement} from "@angular/core";
 
-describe('MenueComponent', () => {
+describe('MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let de: DebugElement;
