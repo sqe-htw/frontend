@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
           next: (event:UserAuth) => {
             alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
             this.loading = false;
-            this.router.navigateByUrl('main-menue');
+            this.router.navigateByUrl('main-menu');
             this.loginError = false;
           },
           error: error => {

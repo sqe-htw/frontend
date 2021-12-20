@@ -3,14 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import {MenuComponent} from "../../core/main_menue/menue/menu.component";
+import {MenuComponent} from "../../core/main_menue/menu/menu.component";
 import {AccountService} from "../../shared/account.service";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'main-menue', canActivate: [AccountService], component: MenuComponent},
+  { path: 'main-menu', canActivate: [AccountService], component: MenuComponent},
   { path: '**', redirectTo: '' }
 ];
 

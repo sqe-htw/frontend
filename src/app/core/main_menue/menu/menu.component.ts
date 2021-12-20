@@ -3,7 +3,7 @@ import {AccountService} from "../../../shared/account.service";
 import {Router} from "@angular/router";
 
 @Component({
-    selector: 'app-menue',
+    selector: 'app-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.sass']
 })
