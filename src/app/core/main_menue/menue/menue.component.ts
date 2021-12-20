@@ -16,7 +16,7 @@ export class MenueComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userName = this.accountService.userValue.user.username;
+        this.userName = this.accountService.currentUser().user.username;
     }
 
     logout() {

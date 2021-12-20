@@ -29,6 +29,10 @@ export class AccountService {
     }
 
     public get userValue(): UserAuth {
+        return this.userSubject.value as UserAuth;
+    }
+
+    public currentUser(): UserAuth{
         return this.userSubject.value;
     }
 
