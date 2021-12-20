@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRouteSnapshot, Router, UrlTree} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map} from 'rxjs/operators';
@@ -30,6 +30,13 @@ export class AccountService {
 
     public get userValue(): UserAuth {
         return this.userSubject.value;
+    }
+
+    canActivate(route: ActivatedRouteSnapshot): boolean|UrlTree {
+        if(this.userSubject.value.access_token != null){
+            return true;
+        }
+        return this.router.parseUrl('/login');
     }
 
     /**
