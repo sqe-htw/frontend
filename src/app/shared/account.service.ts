@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRouteSnapshot, Router, UrlTree} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map} from 'rxjs/operators';
@@ -15,8 +15,6 @@ export class AccountService {
     private userSubject: BehaviorSubject<UserAuth>;
     loggedIn = false;
 
-
-
     constructor(
         private router: Router,
         private http: HttpClient
@@ -29,7 +27,18 @@ export class AccountService {
     }
 
     public get userValue(): UserAuth {
+        return this.userSubject.value as UserAuth;
+    }
+
+    public currentUser(): UserAuth{
         return this.userSubject.value;
+    }
+
+    canActivate(route: ActivatedRouteSnapshot): boolean|UrlTree {
+        if(this.userSubject.value.access_token != null){
+            return true;
+        }
+        return this.router.parseUrl('/login');
     }
 
     /**
@@ -54,7 +63,8 @@ export class AccountService {
      * Entferne Nutzer vom lokalen Speicher und setze aktuellen user auf null
      */
     logout() {
-
+        this.userSubject.next({} as UserAuth);
+        this.loggedIn = false;
     }
 
     /**

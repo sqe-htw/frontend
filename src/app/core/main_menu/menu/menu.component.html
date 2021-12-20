@@ -1,0 +1,20 @@
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-12">
+            <div>Hello {{ this.userName }}!</div>
+            <a  class="nav-link"
+                [routerLink]="['play']"
+                routerLinkActive="router-link-active" >
+                <button type="button" id="playButton" class="btn btn-success btn-lg">Play</button>
+            </a>
+            <a  class="nav-link"
+                [routerLink]="['manage']"
+                routerLinkActive="router-link-active" >
+                <button type="button" id="manageCardsButton" class="btn btn-primary btn-lg">Manage Cards</button>
+            </a>
+            <a class="nav-link">
+                <button type="button" (click)="logout()" id="logoutButton" class="btn btn-primary btn-lg">Logout</button>
+            </a>
+        </div>
+    </div>
+</div>
