@@ -4,10 +4,10 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-menue',
-    templateUrl: './menue.component.html',
-    styleUrls: ['./menue.component.sass']
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.sass']
 })
-export class MenueComponent implements OnInit {
+export class MenuComponent implements OnInit {
 
     userName!: String;
 

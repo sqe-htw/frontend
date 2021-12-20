@@ -15,8 +15,6 @@ export class AccountService {
     private userSubject: BehaviorSubject<UserAuth>;
     loggedIn = false;
 
-
-
     constructor(
         private router: Router,
         private http: HttpClient

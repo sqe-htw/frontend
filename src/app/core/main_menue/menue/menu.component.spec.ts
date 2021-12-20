@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenueComponent } from './menue.component';
+import { MenuComponent } from './menu.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "../../../app-routing.module";
@@ -12,8 +12,8 @@ import {UserAuth} from "../../../models/user";
 import {DebugElement} from "@angular/core";
 
 describe('MenueComponent', () => {
-  let component: MenueComponent;
-  let fixture: ComponentFixture<MenueComponent>;
+  let component: MenuComponent;
+  let fixture: ComponentFixture<MenuComponent>;
   let de: DebugElement;
 
 
@@ -30,13 +30,13 @@ describe('MenueComponent', () => {
         HttpClientModule,
       ],
       providers: [ AccountService ],
-      declarations: [ MenueComponent ]
+      declarations: [ MenuComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenueComponent);
+    fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
 
