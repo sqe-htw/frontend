@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './core/home/home.component';
+import {MenuComponent} from "./core/main_menu/menu/menu.component";
 
-const routes: Routes = [
-  { path: '', component: HomeComponent }
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'main-menu', component: MenuComponent }
 ];
 
 @NgModule({

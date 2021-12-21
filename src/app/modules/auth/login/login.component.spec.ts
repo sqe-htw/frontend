@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RouterModule} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 import {AppRoutingModule} from "../../../app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import {DebugElement} from "@angular/core";
@@ -11,7 +11,10 @@ import {of} from "rxjs";
 import {User, UserAuth} from '../../../models/user';
 import {AccountService} from "../../../shared/account.service";
 
+import { RouterTestingModule } from "@angular/router/testing";
+import {Location} from "@angular/common";
 
+import { routes } from '../../../app-routing.module'
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -22,6 +25,10 @@ describe('LoginComponent', () => {
 
   let spy: jasmine.Spy;
 
+  let router: Router;
+
+  let location: Location;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -30,6 +37,7 @@ describe('LoginComponent', () => {
         RouterModule,
         AppRoutingModule,
         HttpClientModule,
+          RouterTestingModule.withRoutes(routes),
       ],
       providers: [ AccountService ],
       declarations: [ LoginComponent ]
@@ -38,6 +46,10 @@ describe('LoginComponent', () => {
   });
 
   beforeEach(() => {
+
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
+
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
@@ -48,6 +60,7 @@ describe('LoginComponent', () => {
 
 
     fixture.detectChanges();
+    router.initialNavigation();
   });
 
   it('should create', () => {
@@ -82,6 +95,20 @@ describe('LoginComponent', () => {
     expect(spy).toHaveBeenCalledWith({ username: 'testUsername', password: 'testPassword' });
     expect(spy.calls.all().length).toEqual(1);
   });
+
+  it('should login the user',() => {
+    updateForm('testUsername', 'testPassword');
+
+    component.onSubmit();
+    expect(spy).toHaveBeenCalledWith({ username: 'testUsername', password: 'testPassword' });
+    expect(component.loginError).toBeFalsy();
+  });
+
+  it('should navigate from login to main-menu', fakeAsync(() => {
+    router.navigate(['main-menu'])
+    tick();
+    expect(location.path()).toBe('/main-menu')
+  }));
 
   /**
    * Sets the values of the login form programmatically
