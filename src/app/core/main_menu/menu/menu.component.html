@@ -3,9 +3,8 @@
         <div class="col-12">
             <div>Hello {{ this.userName }}!</div>
             <a  class="nav-link"
-                [routerLink]="['play']"
                 routerLinkActive="router-link-active" >
-                <button type="button" id="playButton" class="btn btn-success btn-lg">Play</button>
+                <button type="button" (click)="play()" id="playButton" class="btn btn-success btn-lg">Play</button>
             </a>
             <a  class="nav-link"
                 [routerLink]="['manage']"
