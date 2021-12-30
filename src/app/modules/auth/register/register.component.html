@@ -21,6 +21,9 @@
             </div>
             <br>
             <div class="form-group">
+                <div *ngIf="registerError"  class="text-danger">
+                    <div> Nutzername existiert bereits</div>
+                </div>
                 <button [disabled]="loading" class="btn btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Registrieren
