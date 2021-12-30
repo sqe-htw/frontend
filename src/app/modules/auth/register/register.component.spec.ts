@@ -6,25 +6,27 @@ import {Router, RouterModule} from "@angular/router";
 import {AuthRoutingModule} from '../auth-routing.module'
 import {HttpClientModule} from "@angular/common/http";
 import {DebugElement} from "@angular/core";
+import {By} from "@angular/platform-browser";
 import {of} from "rxjs";
 import {UserRegister} from '../../../models/user';
 import {AccountService} from "../../../shared/account.service";
-
-import { RouterTestingModule } from "@angular/router/testing";
+import {RouterTestingModule} from "@angular/router/testing";
 import {Location} from "@angular/common";
-
 import { routes } from "../auth-routing.module";
-import {By} from "@angular/platform-browser";
+
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let de: DebugElement;
+
   let service: AccountService;
+
   let spy: jasmine.Spy;
+
   let router: Router;
+
   let location: Location;
-  let username: "null";
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,8 +52,6 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    createRandomUsername();
-    console.log(username);
     service = de.injector.get(AccountService);
 
     spy = spyOn(service, 'register').and.returnValue(of({} as UserRegister));
@@ -81,22 +81,22 @@ describe('RegisterComponent', () => {
   });
 
   it('form should be updated', () => {
-    updateForm(username, 'testPassword');
-    expect(component.form.value.username).toEqual(username);
+    updateForm('testUsername', 'testPassword');
+    expect(component.form.value.username).toEqual('testUsername');
     expect(component.form.value.password).toEqual('testPassword');
   })
 
   it('should call register one time, with inputted values', () => {
-    updateForm(username, 'testPassword');
+    updateForm('testUsername', 'testPassword');
     component.onSubmit();
-    expect(spy).toHaveBeenCalledWith({ username: username, password: 'testPassword' });
+    expect(spy).toHaveBeenCalledWith({ username: 'testUsername', password: 'testPassword' });
     expect(spy.calls.all().length).toEqual(1);
   });
 
   it('should register the user',   () => {
-        updateForm(username, 'testPassword');
+    updateForm('testUsername', 'testPassword');
         component.onSubmit();
-        expect(spy).toHaveBeenCalledWith({ username: username, password: 'testPassword'});
+        expect(spy).toHaveBeenCalledWith({ username: 'testUsername', password: 'testPassword' });
         expect(component.registerError).toBeFalsy();
       });
 
@@ -107,25 +107,13 @@ describe('RegisterComponent', () => {
   }));
 
   /**
-   * Sets the values of the register form programmatically
+   * Sets the values of the login form programmatically
    * @param username set in the form
    * @param password set in the form
    */
   function updateForm(username: string, password: string) {
     component.form.controls['username'].setValue(username);
     component.form.controls['password'].setValue(password);
-  }
-
-
-  function createRandomUsername() {
-    let length = 5
-    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-      username += characters.charAt(Math.floor(Math.random() *
-          charactersLength));
-    }
-
   }
 
 });
