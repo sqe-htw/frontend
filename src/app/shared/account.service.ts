@@ -73,7 +73,6 @@ export class AccountService {
      * @returns Observable<User> the user object with also the id set
      */
     register(user: User): Observable<User> {
-        console.log("__debug:" + user.username)
         return this.http.post<User>(`${environment.apiUrl}/user/register`, user);
     }
 
