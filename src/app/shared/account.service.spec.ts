@@ -27,23 +27,18 @@ describe('AccountService', () => {
   });
 
   it('login should call http service', fakeAsync(() => {
-      /*
-      service.login({username: 'test', password: 'test'})
+      service.login({username: 'test', password: 'test'}).subscribe();
       tick();
       const req = httpMock.expectOne({method: 'POST'});
       expect(req.request.url).toBe(`${environment.apiUrl}/auth/login`);
       req.flush('Post');
-
-       */
   }));
 
   it('register should call http service', fakeAsync (() => {
         service.register({username: 'test', password: 'test'}).subscribe();
         tick();
         const req = httpMock.expectOne({method: 'POST'});
-        console.log(req.request.url);
         expect(req.request.url).toBe(`${environment.apiUrl}/user/register`);
-
       req.flush('Post');
   }));
 });
