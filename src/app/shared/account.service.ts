@@ -92,20 +92,4 @@ export class AccountService {
     getById(id: string) {
         //return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
-
-
-    /**
-     * automatische Abmeldung, wenn der angemeldete Benutzer seinen eigenen Datensatz gelöscht hat
-     * @param id User-ID
-     * @returns
-     */
-    delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`)
-            .pipe(map(x => {
-                if (id == this.userValue.user.id.toString()) {
-                    this.logout();
-                }
-                return x;
-            }));
-    }
 }
