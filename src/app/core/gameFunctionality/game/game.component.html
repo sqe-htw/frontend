@@ -1,0 +1,24 @@
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="d-flex justify-content-center">
+                <div class="card cardBorders" style="width: 18rem; height: 25rem">
+                    <div class="card-body">
+                        <div class="card-title mt-2 fontSizeText" id="name">{{showName()}}...</div>
+                        <div class="mt-5 fontSizeText">
+                            ... {{showCardText()}}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" id="cancelGameButton" (click)="cancel()" class="btn btn-danger">Beenden</button>
+                            </div>
+                            <div class="col colDisplay">
+                                <button type="button" id="nextButton" (click)="next()" class="btn btn-success" style="margin-right: 8px">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

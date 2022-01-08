@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
     }
 
     play() {
-        this.router.navigateByUrl('game');
+        this.router.navigateByUrl('gameSettings');
     }
 
 }
