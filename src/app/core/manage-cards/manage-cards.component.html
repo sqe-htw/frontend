@@ -1,5 +1,25 @@
-<p>manage-cards works!</p>
 <p class="display-5">Create a new Card</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="cardTextInput" class="form-label">
+            Card Text
+        </label>
+        <input type="text"
+               class="form-control"
+               id="cardTextInput"
+               formControlName="cardText"
+               placeholder="Kartentext eingeben">
+        <div class="form-group">
+            <div *ngIf="createError"  class="text-danger">
+                <div> Der Karten-Text darf nicht leer sein</div>
+            </div>
+            <button [disabled]="loading" type="submit" class="btn btn-primary submit">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Erstellen
+            </button>
+        </div>
+    </div>
+</form>
 <p class="display-5">Your Cards</p>
 <table class="table table-striped">
     <thead>
