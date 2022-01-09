@@ -1,45 +1,44 @@
-<p class="display-5">Create a new Card</p>
-<form [formGroup]="form" (ngSubmit)="createCard()">
-    <div class="mb-3">
-        <label for="cardTextInput" class="form-label">
-            Card Text
-        </label>
-        <input type="text"
-               class="form-control"
-               id="cardTextInput"
-               formControlName="cardText"
-               placeholder="Kartentext eingeben">
-        <div class="form-group">
-            <div *ngIf="createError"  class="text-danger">
-                <div> Der Karten-Text darf nicht leer sein</div>
+<div class="p-3">
+    <p class="display-5">Create a new Card</p>
+    <form [formGroup]="form" (ngSubmit)="createCard()">
+        <div class="row addCardRow">
+            <input type="text"
+                   class="form-control col"
+                   id="cardTextInput"
+                   formControlName="cardText"
+                   placeholder="Kartentext eingeben">
+            <div class="form-group col">
+                <div *ngIf="createError"  class="text-danger">
+                    <div> Der Karten-Text darf nicht leer sein</div>
+                </div>
+                <button [disabled]="this.form.invalid" type="submit" class="btn btn-primary submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Erstellen
+                </button>
             </div>
-            <button [disabled]="this.form.invalid" type="submit" class="btn btn-primary submit">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Erstellen
-            </button>
         </div>
-    </div>
-</form>
-<p class="display-5">Your Cards</p>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>
-            #
-        </th>
-        <th>
-            Text
-        </th>
-        <th>
-            Aktionen
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let card of cards">
-        <th scope="row">{{card.id}}</th>
-        <td>{{card.text}}</td>
-        <td><Button type="button" class="btn btn-danger" (click)="deleteCard(card)">Karte Löschen</Button></td>
-    </tr>
-    </tbody>
-</table>
+    </form>
+    <p class="display-5">Your Cards</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Text
+            </th>
+            <th>
+                Aktionen
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let card of cards">
+            <th scope="row">{{card.id}}</th>
+            <td>{{card.text}}</td>
+            <td><Button type="button" class="btn btn-danger" (click)="deleteCard(card)">Karte Löschen</Button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
