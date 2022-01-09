@@ -5,11 +5,12 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './main_menu/menu/menu.component';
 import { GameComponent } from './gameFunctionality/game/game.component';
 import { GameSettingsComponent } from './gameFunctionality/gameSettings/gameSettings.component';
+import { ManageCardsComponent } from './manage-cards/manage-cards.component';
 
 
 
 @NgModule({
-  declarations: [ HomeComponent, MenuComponent, GameComponent, GameSettingsComponent ],
+  declarations: [ HomeComponent, MenuComponent, GameComponent, GameSettingsComponent, ManageCardsComponent ],
   imports: [
     CommonModule,
     RouterModule
