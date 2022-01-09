@@ -54,7 +54,7 @@ export class ManageCardsComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     console.log("__debug: onSubmit create text component");
 
     // this.submitted = true;
@@ -67,6 +67,9 @@ export class ManageCardsComponent implements OnInit {
 
     console.log("Value:" +this.form.value.cardText);
     // this.loading = true;
+
+    await this.gameService.createCard(this.userId, this.userToken, this.form.value.cardText)
+        .subscribe(value => this.getAllCards(this.userId, this.userToken));
 
     this.form.reset();
 

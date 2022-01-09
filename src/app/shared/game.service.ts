@@ -37,4 +37,23 @@ export class GameService {
             }));
 
     }
+
+    createCard(userId:number, accessToken:string, cardText: string): Observable<Card> {
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        };
+        const body = {"text": cardText};
+
+        const httpHeaders = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        });
+
+        return this.http.post<Card>(
+            `${environment.apiUrl}/cards/createCard`,
+            body,
+            {headers});
+    }
 }
