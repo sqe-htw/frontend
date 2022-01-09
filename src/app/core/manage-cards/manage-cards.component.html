@@ -1,1 +1,21 @@
 <p>manage-cards works!</p>
+<p class="display-5">Create a new Card</p>
+<p class="display-5">Your Cards</p>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Text
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let card of cards">
+        <th scope="row">{{card.id}}</th>
+        <td>{{card.text}}</td>
+    </tr>
+    </tbody>
+</table>
