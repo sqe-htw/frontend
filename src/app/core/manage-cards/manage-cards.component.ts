@@ -52,6 +52,13 @@ export class ManageCardsComponent implements OnInit {
     console.log(this.cards)
   }
 
+  async deleteCard(card: Card){
+    console.log(`delete card ${card.id}`);
+
+    await this.gameService.deleteCard(this.userId, this.userToken, card.id)
+        .subscribe(value => this.getAllCards(this.userId, this.userToken));
+  }
+
   get f() { return this.form.controls; }
 
   async onSubmit(): Promise<void> {

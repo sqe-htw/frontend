@@ -30,12 +30,16 @@
         <th>
             Text
         </th>
+        <th>
+            Aktionen
+        </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let card of cards">
         <th scope="row">{{card.id}}</th>
         <td>{{card.text}}</td>
+        <td><Button type="button" class="btn btn-danger" (click)="deleteCard(card)">Karte Löschen</Button></td>
     </tr>
     </tbody>
 </table>

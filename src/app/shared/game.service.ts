@@ -56,4 +56,15 @@ export class GameService {
             body,
             {headers});
     }
+
+    deleteCard(userId:number, accessToken:string, cardId: number){
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        };
+
+        return this.http.delete<Card>(
+            `${environment.apiUrl}/cards/deleteCard/${cardId}/${userId}`,
+            {headers});
+    }
 }
