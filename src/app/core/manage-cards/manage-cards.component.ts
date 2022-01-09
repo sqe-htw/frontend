@@ -21,7 +21,7 @@ export class ManageCardsComponent implements OnInit {
   public createError: boolean = false;
   public loading: boolean = false;
   submitted = false;
-  valid = false;
+  public valid = false;
 
   form!: FormGroup;
 
@@ -61,7 +61,7 @@ export class ManageCardsComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  async onSubmit(): Promise<void> {
+  async createCard(): Promise<void> {
     console.log("__debug: onSubmit create text component");
 
     // this.submitted = true;
