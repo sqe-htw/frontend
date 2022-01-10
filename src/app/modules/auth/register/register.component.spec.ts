@@ -8,7 +8,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 import {of} from "rxjs";
-import {UserRegister} from '../../../models/user';
+import {User, UserRegister} from '../../../models/user';
 import {AccountService} from "../../../shared/account.service";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Location} from "@angular/common";
@@ -54,7 +54,7 @@ describe('RegisterComponent', () => {
     de = fixture.debugElement;
     service = de.injector.get(AccountService);
 
-    spy = spyOn(service, 'register').and.returnValue(of({} as UserRegister));
+    spy = spyOn(service, 'register').and.returnValue(of({} as User));
 
 
     fixture.detectChanges();

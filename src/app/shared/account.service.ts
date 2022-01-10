@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map} from 'rxjs/operators';
 
 import {environment} from 'src/environments/environment';
-import {User, UserAuth} from '../models/user';
+import {User, UserAuth, UserRegister} from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -72,7 +72,7 @@ export class AccountService {
      * @param user the user object with username and password set
      * @returns Observable<User> the user object with also the id set
      */
-    register(user: User): Observable<User> {
+    register(user: UserRegister): Observable<User> {
         return this.http.post<User>(`${environment.apiUrl}/user/register`, user);
     }
 
