@@ -7,7 +7,7 @@ import {MenuComponent} from "../../core/main_menu/menu/menu.component";
 import {AccountService} from "../../shared/account.service";
 import {ManageCardsComponent} from "../../core/manage-cards/manage-cards.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'reset-password', component: ResetPasswordComponent },

@@ -1,5 +1,10 @@
 export interface User {
-    id: number,
+    id?: number,
+    username: string;
+    password: string;
+}
+
+export interface UserRegister {
     username: string;
     password: string;
 }
