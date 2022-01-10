@@ -25,7 +25,7 @@ describe('ManageCardsComponent', () => {
   let gameService: GameService;
 
 
-  let accountService_spy: jasmine.Spy;
+  let gameService_spy_delete: jasmine.Spy;
   let gameService_spy_create: jasmine.Spy;
   let gameService_spy_get: jasmine.Spy;
 
@@ -62,6 +62,7 @@ describe('ManageCardsComponent', () => {
 
     gameService_spy_create = spyOn(gameService, 'createCard').and.returnValue(of({} as Card));
     gameService_spy_get = spyOn(gameService, 'getAllCards').and.returnValue(of([] as Card[]));
+    gameService_spy_delete = spyOn(gameService, 'deleteCard').and.returnValue(of({} as Card));
 
     fixture.detectChanges();
     // router.initialNavigation();
@@ -82,6 +83,18 @@ describe('ManageCardsComponent', () => {
 
     component.createCard();
     expect(gameService_spy_create).toHaveBeenCalledWith(1, 'token', 'test text');
+  });
+
+  it('should call game-service when fetching cards', () => {
+    component.getAllCards(1, 'token');
+    expect(gameService_spy_get).toHaveBeenCalledWith(1, 'token');
+  });
+
+  it('should call game-service when deleting cards', () => {
+    component.userId = 1;
+    component.userToken = 'token';
+    component.deleteCard({id: 1, userId: 1, text: 'test text'} as Card);
+    expect(gameService_spy_delete).toHaveBeenCalledWith(1, 'token', 1);
   });
 
 
