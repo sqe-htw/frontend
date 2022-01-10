@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { ManageCardsComponent } from './manage-cards.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -9,8 +9,6 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {AccountService} from "../../shared/account.service";
 import {GameService} from "../../shared/game.service";
 import {of} from "rxjs";
-import {UserAuth} from "../../models/user";
-import {Location} from "@angular/common";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 import {Card} from "../../models/card";
@@ -29,10 +27,6 @@ describe('ManageCardsComponent', () => {
   let gameService_spy_create: jasmine.Spy;
   let gameService_spy_get: jasmine.Spy;
 
-
-  let router: Router;
-
-  let location: Location;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -56,7 +50,6 @@ describe('ManageCardsComponent', () => {
     fixture.detectChanges();
     de = fixture.debugElement;
 
-
     accountService = de.injector.get(AccountService);
     gameService = de.injector.get(GameService);
 
@@ -65,7 +58,6 @@ describe('ManageCardsComponent', () => {
     gameService_spy_delete = spyOn(gameService, 'deleteCard').and.returnValue(of({} as Card));
 
     fixture.detectChanges();
-    // router.initialNavigation();
   });
 
   it('should create', () => {
@@ -95,6 +87,18 @@ describe('ManageCardsComponent', () => {
     component.userToken = 'token';
     component.deleteCard({id: 1, userId: 1, text: 'test text'} as Card);
     expect(gameService_spy_delete).toHaveBeenCalledWith(1, 'token', 1);
+  });
+
+  it('create button should be inactive without input text', () => {
+    expect(de.query(By.css('#createButton')).nativeElement.disabled).toBeTruthy();
+  });
+
+  it('create button should be active with input text', () => {
+    updateForm('text');
+    fixture.detectChanges();
+    expect(component.form.invalid).toBeFalsy();
+    fixture.detectChanges();
+    expect(de.query(By.css('#createButton')).nativeElement.disabled).toBeFalsy();
   });
 
 

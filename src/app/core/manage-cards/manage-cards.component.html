@@ -11,7 +11,7 @@
                 <div *ngIf="createError"  class="text-danger">
                     <div> Der Karten-Text darf nicht leer sein</div>
                 </div>
-                <button [disabled]="this.form.invalid" type="submit" class="btn btn-primary submit">
+                <button [disabled]="this.form.invalid" type="submit" class="btn btn-primary submit" id="createButton">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Erstellen
                 </button>
