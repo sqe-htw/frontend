@@ -19,7 +19,6 @@ export class GameService {
         private http: HttpClient
     ) {
         this.cardSubject = new BehaviorSubject<Array<Card>>(JSON.parse(localStorage.getItem("card") || '{}'));
-        this.cardSubject.subscribe({next: (v) => console.log(v ?? '')});
         this.cardSubject.subscribe({
             next: (card) => localStorage.setItem("card", JSON.stringify(card))
         })
@@ -31,7 +30,6 @@ export class GameService {
                 'Authorization': `Bearer ${accessToken}`
             })}).pipe(
             map(result => {
-                console.log(result)
                 this.cardSubject.next(result);
                 return result;
             }));

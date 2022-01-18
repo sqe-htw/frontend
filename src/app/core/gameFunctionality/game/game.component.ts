@@ -18,6 +18,9 @@ export class GameComponent implements OnInit {
     public showGame: any;
     public names: any;
     public cards: any;
+    public cardTextList: any;
+    public displayName: any;
+    public displayCard: any;
 
     constructor(private accountService: AccountService,
                 private gameService: GameService,
@@ -25,18 +28,19 @@ export class GameComponent implements OnInit {
         this.showGame = false;
         this.names = [];
         this.cards = {};
+        this.cardTextList = {};
         this.user = {};
+        this.displayName = "";
+        this.displayCard = "";
     }
 
     async ngOnInit(): Promise<void> {
-        console.log(this.accountService.currentUser().access_token)
         this.userToken = this.accountService.currentUser().access_token;
         this.userId = this.accountService.currentUser().user.id;
         this.names = window.history.state.names;
         if (this.names === undefined) {
             this.router.navigateByUrl('gameSettings')
         }
-        console.log(this.names)
         this.user = this.accountService.currentUser().user;
         await this.getAllCards(this.userId, this.userToken);
     }
@@ -47,9 +51,9 @@ export class GameComponent implements OnInit {
                 next: (event: any) => {
                     this.cards = event;
                     this.showCardText()
+                    this.showName()
                 },
             });
-        console.log(this.cards)
     }
 
     cancel() {
@@ -57,14 +61,14 @@ export class GameComponent implements OnInit {
     }
 
     showName() {
-        return this.names[Math.floor(Math.random() * this.names.length)];
+        this.displayName =  this.names[Math.floor(Math.random() * this.names.length)];
     }
 
     showCardText() {
-        var cards = this.cards.map((x: { text: any; }) => {
+        this.cardTextList = this.cards.map((x: { text: any; }) => {
             return x.text
         });
-        return cards[Math.floor(Math.random() * cards.length)];
+        this.displayCard = this.cardTextList[Math.floor(Math.random() * this.cardTextList.length)];
     }
 
     next() {
