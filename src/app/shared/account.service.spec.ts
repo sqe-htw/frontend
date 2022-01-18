@@ -7,6 +7,7 @@ import {AppRoutingModule} from "../app-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {environment} from "../../environments/environment";
+import {User} from "../models/user";
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -27,7 +28,7 @@ describe('AccountService', () => {
   });
 
   it('login should call http service', fakeAsync(() => {
-      service.login({username: 'test', password: 'test'}).subscribe();
+      service.login({username: 'test', password: 'test'} as User).subscribe();
       tick();
       const req = httpMock.expectOne({method: 'POST'});
       expect(req.request.url).toBe(`${environment.apiUrl}/auth/login`);
