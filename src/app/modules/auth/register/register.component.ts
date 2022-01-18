@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
+  registerError = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -25,7 +26,6 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log("__debug: Component 'register' has loaded")
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]]
@@ -35,15 +35,18 @@ export class RegisterComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
+    /**
+     * Sofern alle Angaben korrekt (Überprüfung durch form.valid), führe Registrierung durch
+     *
+     */
   onSubmit() {
-      console.log("__debug: onSubmit register component")
       this.submitted = true;
 
       if (this.form.invalid) {
         return;
       }
      
-      console.log("Value:" +this.form.value)
+
       this.loading = true;
       this.accountService.register(this.form.value)
           .pipe(first())
@@ -52,10 +55,12 @@ export class RegisterComponent implements OnInit {
                   alert(`Der Benutzer ${event.username} wurde registriert.`);
                   this.loading = false;
                   this.router.navigateByUrl('login');
+                  this.registerError = false;
               },
               error: error => {
-                  alert("Error" + error);
+                  //alert("Error" + error);
                   this.loading = false;
+                  this.registerError = true;
               }
           });
   }

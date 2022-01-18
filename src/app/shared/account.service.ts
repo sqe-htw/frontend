@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {first, map} from 'rxjs/operators';
 
 import {environment} from 'src/environments/environment';
-import {User, UserAuth} from '../models/user';
+import {User, UserAuth, UserRegister} from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -72,8 +72,7 @@ export class AccountService {
      * @param user the user object with username and password set
      * @returns Observable<User> the user object with also the id set
      */
-    register(user: User): Observable<User> {
-        console.log("__debug:" + user.username)
+    register(user: UserRegister): Observable<User> {
         return this.http.post<User>(`${environment.apiUrl}/user/register`, user);
     }
 
@@ -92,21 +91,5 @@ export class AccountService {
      */
     getById(id: string) {
         //return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
-    }
-
-
-    /**
-     * automatische Abmeldung, wenn der angemeldete Benutzer seinen eigenen Datensatz gelöscht hat
-     * @param id User-ID
-     * @returns
-     */
-    delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`)
-            .pipe(map(x => {
-                if (id == this.userValue.user.id.toString()) {
-                    this.logout();
-                }
-                return x;
-            }));
     }
 }

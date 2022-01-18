@@ -28,4 +28,7 @@ export class MenuComponent implements OnInit {
         this.router.navigateByUrl('gameSettings');
     }
 
+    manageCards(){
+        this.router.navigateByUrl('manage-cards');
+    }
 }

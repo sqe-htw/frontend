@@ -19,6 +19,7 @@ export class GameService {
         private http: HttpClient
     ) {
         this.cardSubject = new BehaviorSubject<Array<Card>>(JSON.parse(localStorage.getItem("card") || '{}'));
+        this.cardSubject.subscribe({next: (v) => console.log(v ?? '')});
         this.cardSubject.subscribe({
             next: (card) => localStorage.setItem("card", JSON.stringify(card))
         })
@@ -34,5 +35,35 @@ export class GameService {
                 return result;
             }));
 
+    }
+
+    createCard(userId:number, accessToken:string, cardText: string): Observable<Card> {
+
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        };
+        const body = {"text": cardText};
+
+        const httpHeaders = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        });
+
+        return this.http.post<Card>(
+            `${environment.apiUrl}/cards/createCard`,
+            body,
+            {headers});
+    }
+
+    deleteCard(userId:number, accessToken:string, cardId: number){
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        };
+
+        return this.http.delete<Card>(
+            `${environment.apiUrl}/cards/deleteCard/${cardId}/${userId}`,
+            {headers});
     }
 }
