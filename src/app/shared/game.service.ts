@@ -31,7 +31,6 @@ export class GameService {
                 'Authorization': `Bearer ${accessToken}`
             })}).pipe(
             map(result => {
-                console.log(result)
                 this.cardSubject.next(result);
                 return result;
             }));

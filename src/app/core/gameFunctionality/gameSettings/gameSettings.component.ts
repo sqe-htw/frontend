@@ -33,7 +33,6 @@ export class GameSettingsComponent implements OnInit {
     play(name:string){
         if(name.length !== 0){
             this.names = name.split(",")
-            console.log(this.names)
             this.router.navigateByUrl('game', {state: {names: this.names}});
         }
     }

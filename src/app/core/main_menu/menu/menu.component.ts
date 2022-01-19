@@ -31,5 +31,4 @@ export class MenuComponent implements OnInit {
     manageCards(){
         this.router.navigateByUrl('manage-cards');
     }
-
 }

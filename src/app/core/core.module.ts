@@ -10,6 +10,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 
 
+
 @NgModule({
   declarations: [ HomeComponent, MenuComponent, GameComponent, GameSettingsComponent, ManageCardsComponent ],
     imports: [
