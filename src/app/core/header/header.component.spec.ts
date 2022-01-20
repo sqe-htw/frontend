@@ -19,7 +19,7 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let de: DebugElement;
 
-  let service: AccountService;
+  let userService: AccountService;
 
   let spy: jasmine.Spy;
 
@@ -57,7 +57,7 @@ describe('HeaderComponent', () => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     de = fixture.debugElement;
-    service = de.injector.get(AccountService);
+    userService = de.injector.get(AccountService);
 
     fixture.detectChanges();
     router.initialNavigation();
@@ -67,11 +67,23 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate while loggedIn to main-menu', fakeAsync(() => {
+  it('should ask user to log in if not logged in after ngOnInit', () => {
+    userService.loggedIn = true;
+    component.ngOnInit();
+    expect(component.userName).toContain(userService.currentUser().user.username);
+  });
 
-    router.navigate(['/main-menu'])
+  it('navigate to "main-menu" takes you to /main-menu', fakeAsync(() => {
+    userService.loggedIn = true;
+    router.navigate(['main-menu']);
     tick();
-    expect(location.path()).toBe('/main-menu')
+    expect(location.path()).toBe('/main-menu');
+  }));
+
+  it('navigate to "reset-password" takes you to /reset-password', fakeAsync(() => {
+    router.navigate(['reset-password']);
+    tick();
+    expect(location.path()).toBe('/reset-password');
   }));
 
 });
