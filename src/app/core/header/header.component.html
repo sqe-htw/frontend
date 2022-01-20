@@ -1,18 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Drink Game</a>
+    <a class="navbar-brand mb-0 h1" (click)="navigate()">
+        <img src="/assets/Beer-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        Drink Game
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
-        Das ultimative Trinkspiel-Erlebnis!
-    
-      <ul class="navbar-nav mr-auto"> 
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div *ngIf="loggedIn">
+        <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    Hi, {{ this.userName }}
+                </li>
 
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Invita a friend</a>
-        </li>
-      </ul>
+                <li class="nav-item">
+                    <a class="dropdown-item" (click)="resetPassword()">Passwort &auml;ndern</a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="dropdown-item" (click)="logout()">Ausloggen</a>
+                </li>
+
+        </ul>
+        </div>
     </div>
   </nav>
