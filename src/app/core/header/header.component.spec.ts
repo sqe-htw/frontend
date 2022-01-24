@@ -5,7 +5,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 import {of} from "rxjs";
-import {User, UserRegister} from '../../models/user';
+import {User, UserAuth, UserRegister} from '../../models/user';
 import {AccountService} from "../../shared/account.service";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Location} from "@angular/common";
@@ -19,20 +19,15 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let de: DebugElement;
 
-  let userService: AccountService;
+  let service: AccountService;
 
   let spy: jasmine.Spy;
+  let logoutSpy: jasmine.Spy;
 
   let router: Router;
-
   let location: Location;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
-  });
+
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -49,41 +44,45 @@ describe('HeaderComponent', () => {
         .compileComponents();
   });
 
+
   beforeEach(() => {
+    fixture = TestBed.createComponent(HeaderComponent);
+    component = fixture.componentInstance;
+    de = fixture.debugElement;
 
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
 
-    fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
-    de = fixture.debugElement;
-    userService = de.injector.get(AccountService);
+    service = de.injector.get(AccountService);
+
+    spy = spyOn(service, 'currentUser').and.returnValue({user: {username: 'Tester'}} as UserAuth);
+
+    logoutSpy= spyOn(service, 'logout');
 
     fixture.detectChanges();
     router.initialNavigation();
   });
 
+
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should ask user to log in if not logged in after ngOnInit', () => {
-    userService.loggedIn = true;
-    component.ngOnInit();
-    expect(component.userName).toContain(userService.currentUser().user.username);
-  });
+  it('navigate to "" takes you to /', fakeAsync(() => {
+    service.loggedIn = false;
+    router.navigate(['']);
+    tick();
+    expect(location.path()).toBe('/');
+  }));
+
 
   it('navigate to "main-menu" takes you to /main-menu', fakeAsync(() => {
-    userService.loggedIn = true;
+    service.loggedIn = true;
     router.navigate(['main-menu']);
     tick();
     expect(location.path()).toBe('/main-menu');
   }));
 
-  it('navigate to "reset-password" takes you to /reset-password', fakeAsync(() => {
-    router.navigate(['reset-password']);
-    tick();
-    expect(location.path()).toBe('/reset-password');
-  }));
 
 });

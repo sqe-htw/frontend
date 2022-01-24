@@ -36,8 +36,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('');
   }
 
-  resetPassword() {
-    this.router.navigateByUrl('reset-password');
-  }
+
 
 }
