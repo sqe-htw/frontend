@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe({
           next: (event:UserAuth) => {
-            alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
+            // alert(`Der Benutzer ${event.user.username} wurde eingeloggt.`);
             this.loading = false;
             this.router.navigateByUrl('main-menu');
             this.loginError = false;

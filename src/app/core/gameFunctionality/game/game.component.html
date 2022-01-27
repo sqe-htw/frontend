@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-center">
                 <div class="card cardBorders" style="width: 18rem; height: 25rem">
                     <div class="card-body">
-                        <div class="card-title mt-2 fontSizeText" id="name">{{displayName}} ...</div>
+                        <div data-testid="name_header" class="card-title mt-2 fontSizeText" id="name">{{displayName}} ...</div>
                         <div class="mt-5 fontSizeText" >
                             ... {{displayCard}}
                         </div>
@@ -11,10 +11,10 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col">
-                                <button type="button" id="cancelGameButton" (click)="cancel()" class="btn btn-danger">Beenden</button>
+                                <button data-testid="cancel_button" type="button" id="cancelGameButton" (click)="cancel()" class="btn btn-danger">Beenden</button>
                             </div>
                             <div class="col colDisplay">
-                                <button type="button" id="nextButton" (click)="next()" class="btn btn-success" style="margin-right: 8px">Next</button>
+                                <button data-testid="next-card_button" type="button" id="nextButton" (click)="next()" class="btn btn-success" style="margin-right: 8px">Next</button>
                             </div>
                         </div>
                     </div>
