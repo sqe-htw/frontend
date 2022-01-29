@@ -79,6 +79,7 @@ describe('HeaderComponent', () => {
 
   it('navigate to "main-menu" takes you to /main-menu', fakeAsync(() => {
     service.loggedIn = true;
+    component.userName = "Tester";
     router.navigate(['main-menu']);
     tick();
     expect(location.path()).toBe('/main-menu');
