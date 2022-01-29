@@ -11,6 +11,8 @@ import {User, UserAuth, UserRegister} from '../models/user';
     providedIn: 'root'
 })
 export class AccountService {
+    private blnLoggedIn = new BehaviorSubject<boolean>(false);
+    currentLoggedIn = this.blnLoggedIn.asObservable();
 
     private userSubject: BehaviorSubject<UserAuth>;
     loggedIn = false;
@@ -54,7 +56,8 @@ export class AccountService {
                 // Registration was successful
                 // Save the users id and token
                 this.userSubject.next(result);
-                this.loggedIn = true;
+                this.blnLoggedIn.next(true);
+                this.changeLoginState(true);
                 return result
             }));
     }
@@ -64,6 +67,7 @@ export class AccountService {
      */
     logout() {
         this.userSubject.next({} as UserAuth);
+        this.changeLoginState(false);
         this.loggedIn = false;
     }
 
@@ -92,4 +96,9 @@ export class AccountService {
     getById(id: string) {
         //return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
+
+    changeLoginState(status: boolean){
+        this.blnLoggedIn.next(status);
+    }
+
 }
