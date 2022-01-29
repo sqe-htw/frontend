@@ -8,6 +8,7 @@
                  id="inputUsername"
                  formControlName="username"
                  placeholder="Benutzernamen eingeben"
+                 data-testid="username-input"
                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
 
         </div>
@@ -18,6 +19,7 @@
                  id="inputPassword"
                  formControlName="password"
                  placeholder="Passwort eingeben"
+                 data-testid="password-input"
                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
         </div>
         <div class="form-check">
@@ -28,7 +30,7 @@
             <div *ngIf="loginError"  class="text-danger">
                 <div> Benutzername und Passwort Kombination existiert nicht.</div>
             </div>
-            <button [disabled]="loading" type="submit" class="btn btn-primary submit">
+            <button [disabled]="loading" type="submit" class="btn btn-primary submit" data-testid="submit-login-button">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                 Einloggen
             </button>
