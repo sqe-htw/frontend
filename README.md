@@ -1,3 +1,7 @@
+<p align="center">
+  <a target="blank"><img src="https://user-images.githubusercontent.com/32168266/153655738-666ad4c8-b9ae-43af-99bf-3895d8afe3f8.png" width="320" alt="Nest Logo" /></a>
+</p>
+
 # Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.11.
