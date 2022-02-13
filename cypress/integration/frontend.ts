@@ -1,15 +1,11 @@
 describe('Frontend', () => {
-    beforeEach(() => {
 
-        /// Backend starten
-
-        /// Spawn, in Hintergrund Thread backend startenng test --no-watch --code-coverage
-
-        cy.visit('/');
+    Cypress.on('uncaught:exception', (err, runnable) => {
+        return false;
     });
 
-    it('has the correct title', () => {
-        cy.title().should('equal', 'Drinking Game');
+    beforeEach(() => {
+        cy.visit('/');
     });
 
     it('user login and register journey', () => {
